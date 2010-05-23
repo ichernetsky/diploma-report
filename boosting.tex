@@ -18,6 +18,32 @@
 \end{displaymath}
 вычисляя его с учетом работы уже построенной части классификатора.
 
+\begin{algorithm}
+  \caption{Алгоритм AdaBoost}
+  \label{adaboost-algorithm}
+  \begin{enumerate}
+  \item Пусть $(x_1, y_1), \dots, (x_M, y_M)$ --- обучающая выборка и $D_1(i) = \frac{1}{M}$ --- начальное распределение.
+  \item Для каждого шага $t = 1,2,..,T$:
+    \begin{enumerate}
+      \item Тренируем слабый классификатор, используя распределение $D_t$.
+      \item Получаем слабый классификатор $h_t(x) \in H$ с ошибкой классификации:
+        \begin{displaymath}
+          \epsilon_t = \sum_{i = 1}^M{D_t(i) \cdot (h_t(x_i) \neq y_i)}).
+        \end{displaymath}
+      \item Вычисляем коэффициент $\alpha_t = \frac{1}{2}\ln{\frac{1 - \epsilon_t}{\epsilon_t}}$.
+      \item Обновляем:
+        \begin{displaymath}
+          D_{t + 1}(i) = \frac{D_t(i)\exp{(-\alpha_ty_ih_t(x_i))}}{Z_t},
+        \end{displaymath}
+        где $Z_t$ --- нормализующий делитель, такой что $D_{t + 1}$ будет распределением.
+    \end{enumerate}
+  \item Составляем сильный классификатор следующим образом:
+    \begin{displaymath}
+      F(x) = \sign{\sum_{t = 1}^T{\alpha_th_t(x)}}.
+    \end{displaymath}
+  \end{enumerate}
+\end{algorithm}
+
 На каждом шаге будем для каждого примера $(x_i, y_i)$ из обучающей выборки вычислять его ``вес''. Положим $D_1(i) = \frac{1}{M}$, тогда
 \begin{displaymath}
   D_{t + 1}(i) = \frac{D_t(i)\exp{(-y_if_t(x_i))}}{Z_t},
