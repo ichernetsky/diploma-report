@@ -1,5 +1,6 @@
 \documentclass[pdftex,a4paper,14pt,english,russian]{extarticle}
 
+\usepackage[top=2cm,bottom=27mm,left=3cm,right=18mm]{geometry}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
@@ -18,8 +19,7 @@
 \usepackage{subfig}
 \usepackage{hyphenat}
 
-% double spacing between lines
-\linespread{1.3}
+\linespread{1.2}
 \floatname{algorithm}{Алгоритм}
 
 % new commands
@@ -30,6 +30,7 @@
 \input{title.tex}
 
 \tableofcontents
+\newpage
 
 \input{tech.tex}
 \input{laborprotection.tex}
